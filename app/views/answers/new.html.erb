@@ -1,0 +1,38 @@
+<div class="container-fluid px-5 my-5">
+  <div class="row align-items-justify">
+    <div class="col">
+      <div class="card border-0 rounded-3 shadow-lg overflow-hidden p-5">
+        <div class="card-body p-0">
+          <div class="row">
+            <div class="col">
+              <h1><%= @survey.title %></h1>
+              <hr/>
+
+              <%= form_for [@survey, @answer], data: { turbo: false } do |f| %>
+                <% if @answer.errors.any? %>
+                  <div class="alert alert-danger" role="alert">
+                    <ul>
+                      <% @answer.errors.full_messages.each do |message| %>
+                        <li><%= message %></li>
+                      <% end %>
+                    </ul>
+                  </div>
+                <% end %>
+
+                <div class="form-group">
+                  <%= f.label :selected_option, "Selected Option" %>
+                  <%= f.select :selected_option, [['Yes', true], ['No', false]], {}, {class: "form-control"} %>
+                </div>
+
+                <div class="actions">
+                  <%= f.submit 'Save Answer', class: 'btn btn-dark' %>
+                  <%= link_to 'Back', surveys_path, class: "btn btn-light" %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
