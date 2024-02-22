@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  selected_option: false
+  user: one
+  survey: one
+
+two:
+  selected_option: false
+  user: two
+  survey: two
