@@ -7,7 +7,7 @@ class SurveysController < ApplicationController
     non_empty_filters = params.dig(:filters)&.reject { |_, value| value.blank? }
     survey_filters_list = surveys_filter.where(non_empty_filters&.permit(:user_id, :title))
 
-    @surveys = survey_filters_list.page(params[:page]).per(ITEMS_PER_PAGE)
+    @surveys = survey_filters_list.page(params[:page]).per(ITEMS_PER_PAGE).order(:created_at)
   end
 
   def new
