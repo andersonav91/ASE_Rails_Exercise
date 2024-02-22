@@ -5,7 +5,11 @@ class SurveysController < ApplicationController
     surveys_filter = Survey
 
     non_empty_filters = params.dig(:filters)&.reject { |_, value| value.blank? }
-    survey_filters_list = surveys_filter.where(non_empty_filters&.permit(:user_id, :title))
+    survey_filters_list = surveys_filter.where(non_empty_filters&.permit(:user_id))
+
+    if non_empty_filters && non_empty_filters[:title]&.present?
+      survey_filters_list = surveys_filter.where("title LIKE ?", "%#{non_empty_filters[:title]}%")
+    end
 
     @surveys = survey_filters_list.page(params[:page]).per(ITEMS_PER_PAGE).order(:created_at)
   end
