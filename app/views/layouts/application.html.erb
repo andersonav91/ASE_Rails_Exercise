@@ -14,14 +14,15 @@
 
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">Surveys System</a>
+      <%= link_to 'Surveys System', surveys_path, class: "navbar-brand" %>
+
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse justify-content-end" id="navbarText">
         <span class="navbar-text">
           <% unless user_signed_in? %>
-              <%= link_to 'Sign in', new_user_session_path %>
+            <%= link_to 'Sign in', new_user_session_path %>
           <% else %>
             <%= link_to "#{(current_user.email if current_user)} (Sign Out)", sign_out_path %>
           <% end %>

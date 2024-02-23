@@ -1,14 +1,15 @@
-class SurveysController < ApplicationController
+# frozen_string_literal: true
 
+class SurveysController < ApplicationController
   ITEMS_PER_PAGE = 10
   def index
     surveys_filter = Survey
 
-    non_empty_filters = params.dig(:filters)&.reject { |_, value| value.blank? }
+    non_empty_filters = params[:filters]&.reject { |_, value| value.blank? }
     survey_filters_list = surveys_filter.where(non_empty_filters&.permit(:user_id))
 
-    if non_empty_filters && non_empty_filters[:title]&.present?
-      survey_filters_list = surveys_filter.where("title LIKE ?", "%#{non_empty_filters[:title]}%")
+    if non_empty_filters && non_empty_filters[:title].present?
+      survey_filters_list = surveys_filter.where('title LIKE ?', "%#{non_empty_filters[:title]}%")
     end
 
     @surveys = survey_filters_list.page(params[:page]).per(ITEMS_PER_PAGE).order(:created_at)

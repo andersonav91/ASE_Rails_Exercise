@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class AnswersController < ApplicationController
-  before_action :set_survey, only: [:new, :create]
+  before_action :set_survey, only: %i[new create]
 
   def new
     @answer = Answer.new
